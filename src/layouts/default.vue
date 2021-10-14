@@ -24,8 +24,8 @@ onMounted(() => {
                 v-slot="{href, route, navigate}"
                 >
               <h5 :href="href" @click="navigate" class=" text-white text-left flex flex-wrap px-3 py-3">
-                <img src="/heka.jpeg" class="h-10">
-                <span style="padding-top:10px;" class="mx-4 text-black">Yarn EYE</span>
+                <img src="/heka.png" class="h-10">
+                <span style="padding-top:10px;" class="mx-4 text-shadow-sm text-black">Yarn EYE</span>
               </h5>
            </router-link>
            <div class="py-3 px-3">

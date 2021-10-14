@@ -39,9 +39,8 @@ export class ApiGeneric {
       body: JSON.stringify(entity),
     };
     const responseData = await fetch(`${this.apiPath}${typeName}`, requestOptions);
-    const postId = (await responseData.json()).id;
 
-    return postId;
+    return await responseData.json();
   }
 
   public async update<T>(typeName: String, id: number, entity: T) {
@@ -51,9 +50,8 @@ export class ApiGeneric {
       body: JSON.stringify(entity),
     };
     const responseData = await fetch(`${this.apiPath}${typeName}/${id}`, requestOptions);
-    const postId = (await responseData.json()).id;
-
-    return postId;
+    
+    return await responseData.json();
   }
 
   public delete<T>(entity: T) {

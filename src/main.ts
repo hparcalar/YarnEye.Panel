@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import Toaster from "@meforma/vue-toaster";
 import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 import 'virtual:windi.css';
@@ -16,4 +17,10 @@ const router = createRouter({
     routes,
 });
 
-createApp(App).use(router).mount('#app')
+const app = createApp(App)
+    app.use(router)
+    .use(Toaster, {
+        position: "bottom-right",
+      })
+    .provide('toast', app.config.globalProperties.$toast)
+    .mount('#app')

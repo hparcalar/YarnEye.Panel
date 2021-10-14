@@ -21,9 +21,14 @@
        </div>
 
        <div class="col-md-4">
-           <button type="button" id="btnSampleAssignment" class="btn-secondary btn-block w-full h-150px">
+           <router-link
+                to="/assignments"
+                v-slot="{href, route, navigate}"
+                >
+           <button type="button" :href="href" @click="navigate" id="btnSampleAssignment" class="btn-secondary btn-block w-full h-150px">
                ÖRNEKLEM ATAMA
            </button>
+           </router-link>
        </div>
 
        <div class="col-md-4">
