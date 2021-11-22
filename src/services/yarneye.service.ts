@@ -35,4 +35,22 @@ export class YarnEyeService {
       return await this.apiObject.save('ColorAssignment', model);
   }
   // #endregion
+
+  // #region PYTHON CALLS
+  async openAssignment(lineList: string) {
+    return await this.apiObject.save('ActiveAssigner', {
+      selectedLines: lineList,
+      ipAddr: '127.0.1.1',
+      assignerStatus: 1,
+    })
+  }
+
+  async openTester(prodLineId: number) {
+    return await this.apiObject.save('ActiveTester', {
+      ipAddr: '127.0.1.1',
+      prodLineId: prodLineId,
+      testerStatus: 1,
+    })
+  }
+  // #endregion
 }

@@ -10,7 +10,7 @@
     const toast:any = inject('toast');
     
     onMounted(() => {
-      checkAuthRoute(router, 'assignments');
+      checkAuthRoute(router, 'test');
       loadList();
     });
 
@@ -31,6 +31,9 @@
     }
 
     const selectToggleProdLine = (item: ProdLine) => {
+        if (selectedLineList.value.length > 0)
+            selectedLineList.value.splice(0, selectedLineList.value.length);
+
         if (selectedLineList.value.some(d => d.prodLineId == item.prodLineId))
             selectedLineList.value = selectedLineList.value.filter(d => d.prodLineId != item.prodLineId);
         else
@@ -52,30 +55,10 @@
     }
 
     const startCapture = async () => {
-        const posX = (window.innerWidth - 800) / 2;
-        const posY = (window.innerHeight - 750) / 2;
+        // const posX = (window.innerWidth - 800) / 2;
+        // const posY = (window.innerHeight - 750) / 2;
 
-        // prepare line id list for express app
-        let prmLineList:string = '';
-        selectedLineList.value.forEach((l) => {
-            prmLineList += l.prodLineId + ',';
-        });
-
-        if (prmLineList && prmLineList.length > 0){
-            prmLineList = prmLineList.substr(0, prmLineList.length - 1);
-        }
-
-        await yarnService.openAssignment(prmLineList);
-
-        // cvWindow.value = window.open('http://localhost:4000?lineList=' + prmLineList, "_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=800, height=750,"
-        //     +"top="+ posY +",left="+ posX +"");
-
-        // const childCheckHandler = setInterval(() => {
-        //     if (!cvWindow.value || cvWindow.value.closed === true){
-        //         endCapture();
-        //         clearInterval(childCheckHandler);
-        //     }
-        // }, 100);
+        await yarnService.openTester(selectedLineList.value[0].prodLineId);
     }
 
     const endCapture = () => {
@@ -87,12 +70,12 @@
 <template>
   <div class="py-2 px-3">
       <h5 class="font-bold  py-2 px-2 rounded-lg text-shadow-sm my-3" 
-        style="background-color:rgba(207,231,250,1);">Örneklem Atama</h5>
+        style="background-color:rgba(207,231,250,1);">Bobin Testleri</h5>
       <div class="px-2 py-2">
           <!-- PROD LINE SELECTION -->
           <div v-if="lineSelectionFinished == false" class="flex flex-col">
               <div class="flex flex-row justify-center bg-green-100 rounded-lg py-2 mb-4">
-                  <h6 class="text-right font-bold" style="padding-top:10px;">Önce Hatları Seçin</h6>
+                  <h6 class="text-right font-bold" style="padding-top:10px;">Önce Hat Seçin</h6>
                   <button 
                     @click="finishLineSelection"
                     type="button" class="btn btn-sm btn-success ml-3">
@@ -109,13 +92,13 @@
             </div>
           </div>
 
-          <!-- SAMPLE IMAGE ASSIGNMENT -->
+          <!-- IMAGE TESTER -->
           <div v-if="lineSelectionFinished == true && sampleAssignmentFinished == false">
               <div class="flex flex-row justify-center bg-green-100 rounded-lg py-2 mb-4">
-                  <h6 class="text-right font-bold" style="padding-top:10px;">Kamera Açılıyor... Örnek Bobini Yerleştirin</h6>
+                  <h6 class="text-right font-bold" style="padding-top:10px;">Test İçin Kamera Açılıyor... Bobinler Yerleştirilebilir</h6>
                   <button @click="endCapture"
                     type="button" class="btn btn-sm btn-success ml-3">
-                      Tamamla
+                      Testten Çık
                   </button>
               </div>
               <div>

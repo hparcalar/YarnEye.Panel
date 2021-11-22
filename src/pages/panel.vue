@@ -36,6 +36,17 @@
                RAPOR
            </button>
        </div>
+
+        <div class="col-md-12 mt-3">
+           <router-link
+                to="/test"
+                v-slot="{href, route, navigate}"
+                >
+           <button type="button" :href="href" @click="navigate" id="btnTest" class="btn-secondary btn-block w-full h-150px">
+               TESTE BAŞLA
+           </button>
+           </router-link>
+       </div>
     </div>
 </div>
     
